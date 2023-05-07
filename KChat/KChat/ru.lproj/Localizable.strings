@@ -1,0 +1,69 @@
+/* 
+  Localizable.strings
+  KChat
+
+  Created by Sokolov on 24.03.2023.
+  
+*/
+
+//TabBar
+"main" = "Главная";
+"profile" = "Профиль";
+"chat" = "Мессенджер";
+
+// LOGIN VIEW
+"registrationButtonTitle" = "ЗАРЕГЕСТРИРОВАТЬСЯ";
+"loginButtonTitle" = "Уже есть аккаунт";
+
+//AlreadyLogin
+"logTitle" = "C ВОЗВРАЩЕНИЕМ!";
+"logButtonTitle" = "ВОЙТИ";
+
+// REG VIEW
+"regTitle" = "РЕГИСТРАЦИЯ";
+"regDescriptionLabel" = "Ваши данные будут использоваться для входа в аккаунт";
+"emailPlaceholder" = "Почта";
+"passPlaceholder" = "Пароль";
+"idPlaceHolder" = "Айди";
+"regButtonTitle" = "ЗАРЕГЕСТРИРОВАТЬСЯ";
+"lowerRegDescriptionLabel" = "Нажимая кнопку “Зарегистрироваться” Вы принимаете пользовательское Соглашение и политику конфедициальности";
+
+// Profile
+"settingsButtonTitle" = "Изменить статус";
+"myPhotosTitle" = "Фотографии";
+"myPostsTitle" = "Записи";
+
+//Header
+"statusAlertHeader" = "Изменить статус";
+"statusAlertMessage" = "Расскажите о себе или о своем настроении";
+"statusButtonSave" = "Сохранить";
+
+//CreateNewPost
+"newPostTitle" = "Создать пост";
+"placeHolderTextField" = "Что у вас нового?";
+
+//Settings
+"infoLabel" = "Основная информация";
+"favoritesLabel" = "Избранное";
+"passSetupLabel" = "Изменить пароль";
+"signOutLabel" = "Выйти из аккаунта";
+
+//InfoSettings
+"navigationTitle" = "Основная информация";
+"name" = "Имя";
+"surname" = "Фамилия";
+"gender" = "Пол";
+"genderM" = "мужской";
+"genderF" = "женский";
+"birthday" = "Дата рождения";
+"city" = "Родной город";
+"saveAlertTitle" = "Сохранение данных";
+"saveAlerDescription" = "Сохранить новые данные?";
+"saveAlertYesButton" = "Да";
+"saveAlertNoButton" = "Отмена";
+
+//Favorites
+"favoritesTitle" = "Избранное";
+
+//For Member
+"messageToMember" = "Сообщение";

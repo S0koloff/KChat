@@ -1,0 +1,68 @@
+/* 
+  Localizable.strings
+  KChat
+
+  Created by Sokolov on 24.03.2023.
+  
+*/
+//TabBar
+"main" = "Main";
+"profile" = "Profile";
+"chat" = "Messenger";
+
+// LOGIN
+"registrationButtonTitle" = "REGISTRATION";
+"loginButtonTitle" = "Already have an account";
+
+//AlreadyLogin
+"logTitle" = "WELCOME BACK!";
+"logButtonTitle" = "LOG IN";
+
+// REG VIEW
+"regTitle" = "REGISTRATION";
+"regDescriptionLabel" = "Your details will be used to log into your account";
+"emailPlaceholder" = "Email";
+"passPlaceholder" = "Password";
+"idPlaceHolder" = "Id";
+"regButtonTitle" = "REGISTRATION";
+"lowerRegDescriptionLabel" = "By clicking the “Registraion“ button you accept the User Agreement and Privacy Policy";
+
+//Profile
+"settingsButtonTitle" = "Change status";
+"myPhotosTitle" = "Photos";
+"myPostsTitle" = "Posts";
+
+//Header
+"statusAlertHeader" = "Change status";
+"statusAlertMessage" = "Tell us about yourself or your mood";
+"statusButtonSave" = "Save";
+
+//CreateNewPost
+"newPostTitle" = "Create post";
+"placeHolderTextField" = "Anything new?";
+
+//Settings
+"infoLabel" = "Basic information";
+"favoritesLabel" = "Favorites";
+"passSetupLabel" = "Change password";
+"signOutLabel" = "Sign out";
+
+//InfoSettings
+"navigationTitle" = "Basic information";
+"name" = "Name";
+"surname" = "Surname";
+"gender" = "Gender";
+"genderM" = "male";
+"genderF" = "female";
+"birthday" = "Birthday";
+"city" = "Hometown";
+"saveAlertTitle" = "Saving Data";
+"saveAlerDescription" = "Save new data?";
+"saveAlertYesButton" = "Yes";
+"saveAlertNoButton" = "Cancel";
+
+//Favorites
+"favoritesTitle" = "Favorites";
+
+//For Member
+"messageToMember" = "Message";
