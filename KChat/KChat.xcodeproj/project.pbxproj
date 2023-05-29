@@ -30,8 +30,6 @@
 		1536E9BC29DDA7D0009F76B3 /* InfoSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1536E9BB29DDA7D0009F76B3 /* InfoSettingsViewController.swift */; };
 		1536E9BE29DE04AF009F76B3 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1536E9BD29DE04AF009F76B3 /* FavoriteViewController.swift */; };
 		1536E9C029DE0D6E009F76B3 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1536E9BF29DE0D6E009F76B3 /* FavoriteTableViewCell.swift */; };
-		15389DED29F1ACFA0013CB89 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15389DEC29F1ACFA0013CB89 /* UserModel.swift */; };
-		15389DEF29F1B5660013CB89 /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15389DEE29F1B5660013CB89 /* UserDefaultSettings.swift */; };
 		154B4C942A06A7B000357400 /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B4C932A06A7B000357400 /* MemberModel.swift */; };
 		154B4C962A06DFCA00357400 /* HistoryPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B4C952A06DFCA00357400 /* HistoryPostModel.swift */; };
 		15621CD129F9E524004AE1F6 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15621CD029F9E524004AE1F6 /* RealmService.swift */; };
@@ -64,6 +62,8 @@
 		15A3B0F029E70E48000C48B9 /* MemberPostsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3B0EF29E70E48000C48B9 /* MemberPostsHeader.swift */; };
 		15A3B0F229E70E61000C48B9 /* MemberPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3B0F129E70E61000C48B9 /* MemberPostCell.swift */; };
 		15A3B0F529E87BCB000C48B9 /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3B0F429E87BCB000C48B9 /* HistoryVC.swift */; };
+		15AAD0972A14098100A36DD3 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 15AAD0962A14098100A36DD3 /* KeychainSwift */; };
+		15AAD0992A140A4100A36DD3 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAD0982A140A4100A36DD3 /* FirebaseService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,8 +90,6 @@
 		1536E9BB29DDA7D0009F76B3 /* InfoSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSettingsViewController.swift; sourceTree = "<group>"; };
 		1536E9BD29DE04AF009F76B3 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		1536E9BF29DE0D6E009F76B3 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
-		15389DEC29F1ACFA0013CB89 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		15389DEE29F1B5660013CB89 /* UserDefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultSettings.swift; sourceTree = "<group>"; };
 		154B4C932A06A7B000357400 /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		154B4C952A06DFCA00357400 /* HistoryPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPostModel.swift; sourceTree = "<group>"; };
 		15621CD029F9E524004AE1F6 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
@@ -126,6 +124,7 @@
 		15A3B0EF29E70E48000C48B9 /* MemberPostsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPostsHeader.swift; sourceTree = "<group>"; };
 		15A3B0F129E70E61000C48B9 /* MemberPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPostCell.swift; sourceTree = "<group>"; };
 		15A3B0F429E87BCB000C48B9 /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
+		15AAD0982A140A4100A36DD3 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +134,7 @@
 			files = (
 				15621CD829FA6A86004AE1F6 /* RealmSwift in Frameworks */,
 				15621CD629FA6A86004AE1F6 /* Realm in Frameworks */,
+				15AAD0972A14098100A36DD3 /* KeychainSwift in Frameworks */,
 				156FED4529CD15DB002113F3 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,7 +227,6 @@
 		15389DEB29F1ACD10013CB89 /* DATA */ = {
 			isa = PBXGroup;
 			children = (
-				15621CD929FA703F004AE1F6 /* UserDefaults */,
 				15621CDA29FA7058004AE1F6 /* REALM */,
 			);
 			path = DATA;
@@ -244,15 +243,6 @@
 				154B4C952A06DFCA00357400 /* HistoryPostModel.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		15621CD929FA703F004AE1F6 /* UserDefaults */ = {
-			isa = PBXGroup;
-			children = (
-				15389DEC29F1ACFA0013CB89 /* UserModel.swift */,
-				15389DEE29F1B5660013CB89 /* UserDefaultSettings.swift */,
-			);
-			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		15621CDA29FA7058004AE1F6 /* REALM */ = {
@@ -313,7 +303,9 @@
 			children = (
 				156FED1A29CCBEC6002113F3 /* AppDelegate.swift */,
 				156FED1C29CCBEC6002113F3 /* SceneDelegate.swift */,
+				15AAD09A2A14114500A36DD3 /* NetworkService */,
 				156FED3529CD069A002113F3 /* Helpers */,
+				15621CDB29FA71C5004AE1F6 /* RootViewControllers */,
 				15389DEB29F1ACD10013CB89 /* DATA */,
 				156FED2329CCBEC8002113F3 /* Assets.xcassets */,
 				156FED2529CCBEC8002113F3 /* LaunchScreen.storyboard */,
@@ -340,7 +332,6 @@
 			children = (
 				153458A629D6F63800522C5E /* Colors.swift */,
 				156FED3629CD06AE002113F3 /* Models.swift */,
-				15621CDB29FA71C5004AE1F6 /* RootViewControllers */,
 				1534588B29D203F200522C5E /* Extensions.swift */,
 			);
 			path = Helpers;
@@ -404,6 +395,14 @@
 			path = History;
 			sourceTree = "<group>";
 		};
+		15AAD09A2A14114500A36DD3 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				15AAD0982A140A4100A36DD3 /* FirebaseService.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -424,6 +423,7 @@
 				156FED4429CD15DB002113F3 /* FirebaseAuth */,
 				15621CD529FA6A86004AE1F6 /* Realm */,
 				15621CD729FA6A86004AE1F6 /* RealmSwift */,
+				15AAD0962A14098100A36DD3 /* KeychainSwift */,
 			);
 			productName = KChat;
 			productReference = 156FED1729CCBEC6002113F3 /* KChat.app */;
@@ -457,6 +457,7 @@
 			packageReferences = (
 				156FED4329CD15DB002113F3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				15621CD429FA6A86004AE1F6 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				15AAD0952A14098100A36DD3 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = 156FED1829CCBEC6002113F3 /* Products */;
 			projectDirPath = "";
@@ -513,14 +514,12 @@
 				159E181F29E58A0000ECBC0C /* CreatePostViewController.swift in Sources */,
 				15A3B0E229E6F110000C48B9 /* MemberProfileVC.swift in Sources */,
 				156FED3729CD06AE002113F3 /* Models.swift in Sources */,
-				15389DEF29F1B5660013CB89 /* UserDefaultSettings.swift in Sources */,
 				156FED1B29CCBEC6002113F3 /* AppDelegate.swift in Sources */,
 				15A3B0E929E6F53E000C48B9 /* MemberPhotoExamples.swift in Sources */,
 				15A3B0E429E6F4F4000C48B9 /* MemberPhotosVC.swift in Sources */,
 				153458AA29DB467400522C5E /* ChatViewController.swift in Sources */,
 				1534589829D36AC200522C5E /* PhotosCell.swift in Sources */,
 				15A3B0EC29E70BB3000C48B9 /* MemberHeaderCell.swift in Sources */,
-				15389DED29F1ACFA0013CB89 /* UserModel.swift in Sources */,
 				1536E9B629DC30BE009F76B3 /* HistoryCollectionViewCell.swift in Sources */,
 				1534251329FFD8E500C6AF53 /* HeaderViewCell.swift in Sources */,
 				153458A429D6323200522C5E /* SettingsViewController.swift in Sources */,
@@ -532,6 +531,7 @@
 				1536E9BE29DE04AF009F76B3 /* FavoriteViewController.swift in Sources */,
 				1534588829CE586C00522C5E /* RegViewController.swift in Sources */,
 				1534589A29D3828300522C5E /* PostCell.swift in Sources */,
+				15AAD0992A140A4100A36DD3 /* FirebaseService.swift in Sources */,
 				154B4C962A06DFCA00357400 /* HistoryPostModel.swift in Sources */,
 				15621CE729FC70E2004AE1F6 /* FavoritePostModel.swift in Sources */,
 				15A3B0F029E70E48000C48B9 /* MemberPostsHeader.swift in Sources */,
@@ -778,6 +778,14 @@
 				kind = branch;
 			};
 		};
+		15AAD0952A14098100A36DD3 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 20.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -795,6 +803,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 156FED4329CD15DB002113F3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		15AAD0962A14098100A36DD3 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15AAD0952A14098100A36DD3 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

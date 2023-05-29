@@ -15,33 +15,21 @@ final class CustomButton: UIButton {
     var titleColor: UIColor
     var backgroundButtonColor: UIColor
     var cornerRadius: CGFloat
-    var useShadow: Bool
-    
     var tapAction: Action
     
-    init(title: String, titleColor: UIColor, backgroundButtonColor: UIColor, cornerRadius: CGFloat, useShadow: Bool, action: @escaping Action)  {
+    init(title: String, titleColor: UIColor, backgroundButtonColor: UIColor, cornerRadius: CGFloat, action: @escaping Action)  {
         self.title = title
         self.titleColor = titleColor
         self.backgroundButtonColor = backgroundButtonColor
         self.cornerRadius = cornerRadius
-        self.useShadow = useShadow
         self.tapAction = action
         super.init(frame: .zero)
         
         setTitleColor(titleColor, for: .normal)
         backgroundColor = backgroundButtonColor
         layer.cornerRadius = cornerRadius
-
-        if useShadow == true {
-        layer.shadowOffset = CGSize(width: 4, height: 4)
-        layer.shadowOpacity = 0.7
-        layer.shadowRadius = 4
-        layer.masksToBounds = false
-        }
-        
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         setTitle(title, for: .normal)
-        
         translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -52,7 +40,6 @@ final class CustomButton: UIButton {
     @objc private func buttonTapped() {
         tapAction()
     }
-    
 }
 
 

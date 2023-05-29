@@ -6,9 +6,21 @@
 //
 
 import UIKit
-
+import KeychainSwift
+import RealmSwift
 
 extension UIViewController {
+    
+    func findUser() -> MemberModel {
+        let realm = try! Realm()
+        let keychain = KeychainSwift()
+        
+        let userId = keychain.get("id")
+        let user = realm.objects(MemberModel.self).where {
+            $0.id == userId!
+        }
+        return user.first!
+    }
     
     func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
@@ -56,7 +68,7 @@ extension UIImageView {
         DispatchQueue.main.async { [weak self] in
             if let imageData = try? Data(contentsOf: url) {
                 if let loadedImage = UIImage(data: imageData) {
-                        self?.image = loadedImage
+                    self?.image = loadedImage
                 }
             }
         }

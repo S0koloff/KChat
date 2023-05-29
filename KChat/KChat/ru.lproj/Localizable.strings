@@ -34,7 +34,6 @@
 "myPostsTitle" = "Записи";
 
 //Header
-"statusAlertHeader" = "Изменить статус";
 "statusAlertMessage" = "Расскажите о себе или о своем настроении";
 "statusButtonSave" = "Сохранить";
 

@@ -33,7 +33,6 @@
 "myPostsTitle" = "Posts";
 
 //Header
-"statusAlertHeader" = "Change status";
 "statusAlertMessage" = "Tell us about yourself or your mood";
 "statusButtonSave" = "Save";
 
