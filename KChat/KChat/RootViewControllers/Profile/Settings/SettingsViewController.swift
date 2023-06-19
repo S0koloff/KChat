@@ -14,6 +14,17 @@ import KeychainSwift
 
 class SettingsViewController: UIViewController {
     
+    private let realmService: RealmService
+    
+    init(realmService: RealmService) {
+        self.realmService = realmService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     weak var profileVC: ProfileViewController?
     
     private lazy var avatarImage: UIImageView = {
@@ -239,7 +250,7 @@ class SettingsViewController: UIViewController {
     }
     
     @objc private func favoriteAction(_ sender: UITapGestureRecognizer) {
-        let vc = FavoriteViewController()
+        let vc = FavoriteViewController(realmService: realmService)
         let tr = CATransition()
         tr.duration = 0.25
         tr.type = CATransitionType.moveIn
@@ -259,21 +270,20 @@ class SettingsViewController: UIViewController {
           print("Error signing out: %@", signOutError)
         }
         
-        let keychain = KeychainSwift()
-        keychain.delete("loggedIn")
-
         let tr = CATransition()
-
-        var newArray = [UIViewController]()
-        newArray.append(SceneDelegate.shared!.loginVC)
-        self.tabBarController?.viewControllers? = newArray
-        self.tabBarController?.selectedIndex = 0
         
-        tr.duration = 0.25
-        tr.type = CATransitionType.reveal
-        tr.subtype = CATransitionSubtype.fromLeft
-        view.window!.layer.add(tr, forKey: kCATransition)
-        dismiss(animated: false)
+        guard let sceneDelegate = UIApplication.shared.keyWindow else {
+            return
+        }
+        
+        let serviceFactory = ServicesFactory()
+        sceneDelegate.rootViewController = LoginViewController(factory: serviceFactory)
+        
+        UIView.transition(with: sceneDelegate,
+                             duration: 0.3,
+                             options: .transitionCrossDissolve,
+                             animations: nil,
+                             completion: nil)
     }
     
     @objc private func setupNewAvatarAction(_ sender: UITapGestureRecognizer) {

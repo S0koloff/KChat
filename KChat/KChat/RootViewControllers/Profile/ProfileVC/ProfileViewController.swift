@@ -7,22 +7,28 @@
 
 import UIKit
 import RealmSwift
+import KeychainSwift
 
 final class ProfileViewController: UIViewController {
 
-    var user: MemberModel
-    var postIdForComments = ""
-    var myPosts = [PostModel]()
-    var photosArray = [String]()
-    
-    init(user: MemberModel) {
+    private let user: MemberModel
+    private let realmService: RealmService
+    private let keychain: KeychainSwift
+
+    init(user: MemberModel, realmService: RealmService, keychain: KeychainSwift) {
         self.user = user
+        self.realmService = realmService
+        self.keychain = keychain
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var postIdForComments = ""
+    var myPosts = [PostModel]()
+    var photosArray = [String]()
     
     enum Status {
         case set
@@ -118,7 +124,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc func settingsButtonAction() {
-        let vc = SettingsViewController()
+        let vc = SettingsViewController(realmService: realmService)
         let tr = CATransition()
         tr.duration = 0.25
         tr.type = CATransitionType.moveIn
@@ -179,15 +185,14 @@ extension ProfileViewController: PostTableViewCellProtocol, PostsHeaderProtocol,
             favorite = .toFavorite
                 updates = {
                     let realm = try! Realm()
-                    let realmService = RealmService()
                     let user = realm.objects(MemberModel.self).where {
                         $0.id == userId
                     }
                     if realm.objects(FavoritePostModel.self).count < 1 {
-                        realmService.addFavoritePost(userAvatar: user.first!.avatar, userId: user.first!.id, postId: postId, postImage: postImage, postText: postText, postLike: postLike, postComments: postComments, likeBool: likeBool)
+                        self.realmService.addFavoritePost(userAvatar: user.first!.avatar, userId: user.first!.id, postId: postId, postImage: postImage, postText: postText, postLike: postLike, postComments: postComments, likeBool: likeBool)
                     } else {
                         if let _ = realm.objects(FavoritePostModel.self).first(where: { $0.postId != postId}) {
-                            realmService.addFavoritePost(userAvatar: user.first!.avatar, userId: user.first!.id, postId: postId, postImage: postImage, postText: postText, postLike: postLike, postComments: postComments, likeBool: likeBool)
+                            self.realmService.addFavoritePost(userAvatar: user.first!.avatar, userId: user.first!.id, postId: postId, postImage: postImage, postText: postText, postLike: postLike, postComments: postComments, likeBool: likeBool)
                         }
                     }
                     let indexPath = IndexPath(item: indexOfRow, section: 1)
@@ -248,7 +253,7 @@ extension ProfileViewController: PostTableViewCellProtocol, PostsHeaderProtocol,
     }
     
     func openComments() {
-        let vc = CommentViewController()
+        let vc = CommentViewController(realmService: realmService)
         vc.postID = self.postIdForComments
         print(vc.postID)
         self.present(vc, animated: true)
@@ -260,7 +265,7 @@ extension ProfileViewController: PostTableViewCellProtocol, PostsHeaderProtocol,
 
     
     func createPost() {
-        let vc = CreatePostViewController()
+        let vc = CreatePostViewController(realmService: realmService, keychain: keychain)
         self.present(vc, animated: true)
     }
     
@@ -334,7 +339,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            let vc = PhotosViewController()
+            let vc = PhotosViewController(realmService: realmService)
             navigationController?.pushViewController(vc, animated: true)
         }
     }

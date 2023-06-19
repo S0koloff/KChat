@@ -8,10 +8,22 @@
 import UIKit
 import KeychainSwift
 
-class AlreadyHaveAccountVC: UIViewController {
+final class AlreadyHaveAccountVC: UIViewController {
     
-    let firebaseService = FirebaseService()
-    let keychain = KeychainSwift()
+    private let firebaseService: FirebaseService
+    private let realmService: RealmService
+    private let keychain: KeychainSwift
+    
+    init(firebaseService: FirebaseService, realmService: RealmService, keychain: KeychainSwift) {
+        self.firebaseService = firebaseService
+        self.realmService = realmService
+        self.keychain = keychain
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private lazy var logTitle: UILabel = {
         let logTitle = UILabel()
@@ -73,28 +85,27 @@ class AlreadyHaveAccountVC: UIViewController {
         return passwordTextField
     }()
     
-    private lazy var logButton = CustomButton(title: LoginConstans.logButtonTitle, titleColor: .white, backgroundButtonColor: UIColor(red: 0.17, green: 0.22, blue: 0.25, alpha: 1.00), cornerRadius: 10, action: { self.logButtonAction() })
+    private lazy var logButton = CustomButton(title: LoginConstans.logButtonTitle, titleColor: .white, backgroundButtonColor: UIColor(red: 0.17, green: 0.22, blue: 0.25, alpha: 1.00), cornerRadius: 10, action: {
+        self.logButtonAction() })
+    
+    private lazy var backButton: UIButton = {
+        let backButton = UIButton()
+        backButton.setImage(UIImage(named: "leftArrow")!, for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        return backButton
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupConstraints()
-        setupNavigationBar()
-        
-        self.tabBarController?.tabBar.isHidden = true
-        
         self.hideKeyboardWhenTappedAround()
-    }
-    
-    private func setupNavigationBar() {
-        let backButton = UIBarButtonItem()
-        backButton.tintColor = Colors.gray
-        backButton.title = ""
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     private func setupConstraints() {
         view.addSubview(self.logTitle)
+        view.addSubview(self.backButton)
         view.addSubview(self.logBorderView)
         view.addSubview(self.emailImage)
         view.addSubview(self.passImage)
@@ -107,6 +118,9 @@ class AlreadyHaveAccountVC: UIViewController {
             self.logTitle.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 148),
             self.logTitle.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 76),
             self.logTitle.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -76),
+            
+            self.backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 70),
+            self.backButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 20),
             
             self.logBorderView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 320),
             self.logBorderView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
@@ -140,6 +154,10 @@ class AlreadyHaveAccountVC: UIViewController {
         ])
     }
     
+    @objc private func backButtonAction() {
+        dismiss(animated: true)
+    }
+    
     @objc private func logButtonAction() {
  
         guard let email = loginTextField.text else {
@@ -153,20 +171,19 @@ class AlreadyHaveAccountVC: UIViewController {
         firebaseService.searchUser(for: email, and: pass) { result in
             switch result {
             case .success(let user):
-                let profileVC = UINavigationController(rootViewController: ProfileViewController(user: user))
+                let tabBarController = TabBarController(realmService: self.realmService, keychain: self.keychain)
                 
-                profileVC.tabBarItem = UITabBarItem(title: "profile".localized, image: UIImage(systemName:"person"), selectedImage: UIImage(systemName:"person.fill"))
+                guard let sceneDelegate = UIApplication.shared.keyWindow else {
+                    return
+                }
                 
-                var newArray = [UIViewController]()
-                newArray.append(SceneDelegate.shared!.mainVC)
-                newArray.append(profileVC)
-                newArray.append(SceneDelegate.shared!.chatVC)
+                sceneDelegate.rootViewController = tabBarController.createTabBarController(user: user)
                 
-                self.tabBarController?.viewControllers? = newArray
-                self.keychain.set(true, forKey: "loggedIn")
-                
-                let vc = MainViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
+                UIView.transition(with: sceneDelegate,
+                                     duration: 0.3,
+                                     options: .transitionCrossDissolve,
+                                     animations: nil,
+                                     completion: nil)
                 
             case .failure(_):
                 let alert = UIAlertController(title: "Connection error", message: "Please, check your internet and try again", preferredStyle: .alert)

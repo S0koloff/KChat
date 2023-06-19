@@ -64,6 +64,8 @@
 		15A3B0F529E87BCB000C48B9 /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3B0F429E87BCB000C48B9 /* HistoryVC.swift */; };
 		15AAD0972A14098100A36DD3 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 15AAD0962A14098100A36DD3 /* KeychainSwift */; };
 		15AAD0992A140A4100A36DD3 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAD0982A140A4100A36DD3 /* FirebaseService.swift */; };
+		15AD4AA02A38A5FA007E8A52 /* ServicesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AD4A9F2A38A5FA007E8A52 /* ServicesFactory.swift */; };
+		15AD4AA22A3A21EC007E8A52 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AD4AA12A3A21EC007E8A52 /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +127,8 @@
 		15A3B0F129E70E61000C48B9 /* MemberPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPostCell.swift; sourceTree = "<group>"; };
 		15A3B0F429E87BCB000C48B9 /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
 		15AAD0982A140A4100A36DD3 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		15AD4A9F2A38A5FA007E8A52 /* ServicesFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesFactory.swift; sourceTree = "<group>"; };
+		15AD4AA12A3A21EC007E8A52 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +307,8 @@
 			children = (
 				156FED1A29CCBEC6002113F3 /* AppDelegate.swift */,
 				156FED1C29CCBEC6002113F3 /* SceneDelegate.swift */,
+				15AD4AA12A3A21EC007E8A52 /* TabBarController.swift */,
+				15AD4A9E2A38A585007E8A52 /* Factory */,
 				15AAD09A2A14114500A36DD3 /* NetworkService */,
 				156FED3529CD069A002113F3 /* Helpers */,
 				15621CDB29FA71C5004AE1F6 /* RootViewControllers */,
@@ -403,6 +409,14 @@
 			path = NetworkService;
 			sourceTree = "<group>";
 		};
+		15AD4A9E2A38A585007E8A52 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				15AD4A9F2A38A5FA007E8A52 /* ServicesFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -488,6 +502,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15734B6929E0623D0078016F /* PhotosCollectionViewCell.swift in Sources */,
+				15AD4AA22A3A21EC007E8A52 /* TabBarController.swift in Sources */,
 				15A3B0E729E6F516000C48B9 /* MemberPhotosCollectionVCell.swift in Sources */,
 				156FED1F29CCBEC6002113F3 /* LoginViewController.swift in Sources */,
 				153458A729D6F63800522C5E /* Colors.swift in Sources */,
@@ -513,6 +528,7 @@
 				1536E9C029DE0D6E009F76B3 /* FavoriteTableViewCell.swift in Sources */,
 				159E181F29E58A0000ECBC0C /* CreatePostViewController.swift in Sources */,
 				15A3B0E229E6F110000C48B9 /* MemberProfileVC.swift in Sources */,
+				15AD4AA02A38A5FA007E8A52 /* ServicesFactory.swift in Sources */,
 				156FED3729CD06AE002113F3 /* Models.swift in Sources */,
 				156FED1B29CCBEC6002113F3 /* AppDelegate.swift in Sources */,
 				15A3B0E929E6F53E000C48B9 /* MemberPhotoExamples.swift in Sources */,

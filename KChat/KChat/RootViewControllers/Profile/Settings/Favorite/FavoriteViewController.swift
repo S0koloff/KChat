@@ -10,6 +10,17 @@ import RealmSwift
 
 class FavoriteViewController: UIViewController, FavoriteCellProtocol {
     
+    private let realmService: RealmService
+    
+    init(realmService: RealmService) {
+        self.realmService = realmService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var postIdForComments = ""
     
     private lazy var infoLabel: UILabel = {
@@ -95,7 +106,7 @@ class FavoriteViewController: UIViewController, FavoriteCellProtocol {
     }
     
     func openComments() {
-        let vc = CommentViewController()
+        let vc = CommentViewController(realmService: realmService)
         vc.postID = self.postIdForComments
         print(vc.postID)
         self.present(vc, animated: true)

@@ -11,6 +11,17 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
+    private let factory: ServicesFactory
+    
+    init(factory: ServicesFactory) {
+        self.factory = factory
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private lazy var logoImage: UIImageView = {
         let logoImage = UIImageView()
         logoImage.image = UIImage(named: LoginConstans.logoImageLight)
@@ -36,8 +47,6 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
         setupConstraints()
         loginGestureSetup()
-        
-        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,8 +76,9 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func regButtonAction() {
-        let vc = RegViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = RegViewController(realmService: factory.realmService(), firebaseService: factory.firebaseService(), keychain: factory.keychain())
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
         print("reg")
     }
     
@@ -79,8 +89,9 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func loginGestureAction(_ sender: UITapGestureRecognizer) {
-        let vc = AlreadyHaveAccountVC()
-        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = AlreadyHaveAccountVC(firebaseService: factory.firebaseService(), realmService: factory.realmService(), keychain: factory.keychain())
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
         print("log")
     }
 }

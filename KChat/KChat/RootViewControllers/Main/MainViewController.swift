@@ -11,6 +11,19 @@ import KeychainSwift
 
 final class MainViewController: UIViewController {
     
+    private let realmService: RealmService
+    private let keychain: KeychainSwift
+    
+    init(realmService: RealmService, keychain: KeychainSwift) {
+        self.realmService = realmService
+        self.keychain = keychain
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var postIdForComments = ""
     var postsArray = [PostModel]()
     
@@ -50,6 +63,8 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -70,7 +85,6 @@ final class MainViewController: UIViewController {
     
     private func setupPostsArray() {
         let realm = try! Realm()
-        let keychain = KeychainSwift()
         let posts = realm.objects(PostModel.self).where {
             $0.userID != keychain.get("id")!
         }
@@ -97,15 +111,14 @@ extension MainViewController: HistoryTableViewProtocol, HistoryProtocol, MainPos
             favorite = .toFavorite
                 updates = {
                     let realm = try! Realm()
-                    let realmService = RealmService()
                     let user = realm.objects(MemberModel.self).where {
                         $0.id == userId
                     }
                     if realm.objects(FavoritePostModel.self).count < 1 {
-                        realmService.addFavoritePost(userAvatar: user.first!.avatar, userId: user.first!.id, postId: postId, postImage: postImage, postText: postText, postLike: postLike, postComments: postComments, likeBool: likeBool)
+                        self.realmService.addFavoritePost(userAvatar: user.first!.avatar, userId: user.first!.id, postId: postId, postImage: postImage, postText: postText, postLike: postLike, postComments: postComments, likeBool: likeBool)
                     } else {
                         if let _ = realm.objects(FavoritePostModel.self).first(where: { $0.postId != postId}) {
-                            realmService.addFavoritePost(userAvatar: user.first!.avatar, userId: user.first!.id, postId: postId, postImage: postImage, postText: postText, postLike: postLike, postComments: postComments, likeBool: likeBool)
+                            self.realmService.addFavoritePost(userAvatar: user.first!.avatar, userId: user.first!.id, postId: postId, postImage: postImage, postText: postText, postLike: postLike, postComments: postComments, likeBool: likeBool)
                         }
                     }
                     let indexPath = IndexPath(item: indexOfRow, section: 0)
@@ -204,7 +217,7 @@ extension MainViewController: HistoryTableViewProtocol, HistoryProtocol, MainPos
     //
     
     func openMemberProfile(profileID: String) {
-        let memberProfileVC = MemberProfileVC()
+        let memberProfileVC = MemberProfileVC(realmService: realmService)
         memberProfileVC.profileID = profileID
         navigationController?.pushViewController(memberProfileVC, animated: true)
     }
@@ -215,7 +228,7 @@ extension MainViewController: HistoryTableViewProtocol, HistoryProtocol, MainPos
     }
     
     func openComments() {
-        let vc = CommentViewController()
+        let vc = CommentViewController(realmService: realmService)
         vc.postID = self.postIdForComments
         print(vc.postID)
         self.present(vc, animated: true)

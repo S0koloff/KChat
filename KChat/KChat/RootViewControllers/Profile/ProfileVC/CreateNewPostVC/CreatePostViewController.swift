@@ -11,6 +11,19 @@ import KeychainSwift
 
 class CreatePostViewController: UIViewController {
     
+    private let realmService: RealmService
+    private let keychain: KeychainSwift
+    
+    init(realmService: RealmService, keychain: KeychainSwift) {
+        self.realmService = realmService
+        self.keychain = keychain
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var imageURL = ""
     
     private lazy var titleLabel: UILabel = {
@@ -162,9 +175,6 @@ class CreatePostViewController: UIViewController {
     }
     
     @objc private func savePostAction(_ sender: UITapGestureRecognizer) {
-        
-        let realmService = RealmService()
-        let keychain = KeychainSwift()
         
         realmService.createPost(userID: keychain.get("id")!,
                                 postImage: imageURL,

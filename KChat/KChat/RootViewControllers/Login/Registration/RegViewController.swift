@@ -10,11 +10,22 @@ import RealmSwift
 import KeychainSwift
 import FirebaseAuth
 
-class RegViewController: UIViewController {
+final class RegViewController: UIViewController {
     
-    let realmService = RealmService()
-    let keychain = KeychainSwift()
-    let firebaseService = FirebaseService()
+    private let realmService: RealmService
+    private let keychain: KeychainSwift
+    private let firebaseService: FirebaseService
+    
+    init(realmService: RealmService, firebaseService: FirebaseService, keychain: KeychainSwift) {
+        self.realmService = realmService
+        self.firebaseService = firebaseService
+        self.keychain = keychain
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private lazy var regTitle: UILabel = {
         let regTitle = UILabel()
@@ -120,28 +131,25 @@ class RegViewController: UIViewController {
         return lowerRegDescriptionLabel
     }()
     
+    private lazy var backButton: UIButton = {
+        let backButton = UIButton()
+        backButton.setImage(UIImage(named: "leftArrow")!, for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        return backButton
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupConstraints()
-        setupNavigationBar()
-        
-        self.tabBarController?.tabBar.isHidden = true
-        
         self.hideKeyboardWhenTappedAround()
-    }
-    
-    private func setupNavigationBar() {
-        let backButton = UIBarButtonItem()
-        backButton.tintColor = Colors.gray
-        backButton.title = ""
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     private func setupConstraints() {
         view.addSubview(self.regTitle)
         view.addSubview(self.regDescriptionLabel)
+        view.addSubview(self.backButton)
         view.addSubview(self.regBorderView)
         view.addSubview(self.emailImage)
         view.addSubview(self.passImage)
@@ -157,6 +165,9 @@ class RegViewController: UIViewController {
             self.regTitle.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 148),
             self.regTitle.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 76),
             self.regTitle.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -76),
+            
+            self.backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 70),
+            self.backButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 20),
             
             self.regDescriptionLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 269),
             self.regDescriptionLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 80),
@@ -208,6 +219,10 @@ class RegViewController: UIViewController {
         ])
     }
     
+    @objc private func backButtonAction() {
+        dismiss(animated: true)
+    }
+    
     @objc private func regButtonAction() {
         
         if idTextField.text?.isValidId == false {
@@ -256,21 +271,20 @@ class RegViewController: UIViewController {
                         case .success(let user):
                             
                             print("SUCCESS")
+
+                            let tabBarController = TabBarController(realmService: self.realmService, keychain: self.keychain)
                             
-                            let profileVC = UINavigationController(rootViewController: ProfileViewController(user: user))
+                            guard let sceneDelegate = UIApplication.shared.keyWindow else {
+                                return
+                            }
                             
-                            profileVC.tabBarItem = UITabBarItem(title: "profile".localized, image: UIImage(systemName:"person"), selectedImage: UIImage(systemName:"person.fill"))
+                            sceneDelegate.rootViewController = tabBarController.createTabBarController(user: user)
                             
-                            var newArray = [UIViewController]()
-                            newArray.append(SceneDelegate.shared!.mainVC)
-                            newArray.append(profileVC)
-                            newArray.append(SceneDelegate.shared!.chatVC)
-                            
-                            self.tabBarController?.viewControllers? = newArray
-                            self.keychain.set(true, forKey: "loggedIn")
-                            
-                            let vc = MainViewController()
-                            self.navigationController?.pushViewController(vc, animated: true)
+                            UIView.transition(with: sceneDelegate,
+                                                 duration: 0.3,
+                                                 options: .transitionCrossDissolve,
+                                                 animations: nil,
+                                                 completion: nil)
                             
                         case .failure(_):
                             let alert = UIAlertController(title: "Connection error", message: "Please, check your internet and try again", preferredStyle: .alert)

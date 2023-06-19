@@ -9,8 +9,18 @@ import RealmSwift
 
 class PhotosViewController: UIViewController {
     
-    let photoIdent = "photoCell"
+    private let realmService: RealmService
     
+    init(realmService: RealmService) {
+        self.realmService = realmService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    let photoIdent = "photoCell"
     var imageURL = ""
     
     lazy var layout: UICollectionViewFlowLayout = {
@@ -128,7 +138,6 @@ extension PhotosViewController: UIImagePickerControllerDelegate, UINavigationCon
             self.imageURL = "\(photoURL)"
             
         }
-        let realmService = RealmService()
         realmService.addNewPhoto(photo: imageURL)
         photosCollectionView.reloadData()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshTable"), object: nil)

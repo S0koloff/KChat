@@ -11,7 +11,16 @@ import KeychainSwift
 
 class CommentViewController: UIViewController {
     
-    let realmService = RealmService()
+    private let realmService: RealmService
+    
+    init(realmService: RealmService) {
+        self.realmService = realmService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     var postID = ""
     
