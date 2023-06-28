@@ -9,23 +9,22 @@ import UIKit
 import KeychainSwift
 
 protocol ServicesFactoryProtocol {
-    func firebaseService() -> FirebaseService
-    func realmService() -> RealmService
-    func keychain() -> KeychainSwift
+    var firebaseService: FirebaseService { get }
+    var realmService: RealmService { get }
+    var keychain: KeychainSwift { get }
 }
 
 struct ServicesFactory: ServicesFactoryProtocol {
     
-    func keychain() -> KeychainSwift {
-        KeychainSwift()
-    }
-    
-    func realmService() -> RealmService{
-        RealmService()
-    }
-    
-    func firebaseService() -> FirebaseService {
+    var firebaseService: FirebaseService {
         FirebaseService()
     }
     
+    var realmService: RealmService {
+        RealmService()
+    }
+    
+    var keychain: KeychainSwift {
+        KeychainSwift()
+    }
 }

@@ -191,7 +191,6 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         let comments = realm.objects(CommentsModel.self).where {
                 $0.postId == self.postID
             }
-        print("ARRAYCOUNT:", comments.count)
         return comments.count
     }
     

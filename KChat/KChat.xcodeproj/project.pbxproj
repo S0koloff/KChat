@@ -309,7 +309,7 @@
 				156FED1C29CCBEC6002113F3 /* SceneDelegate.swift */,
 				15AD4AA12A3A21EC007E8A52 /* TabBarController.swift */,
 				15AD4A9E2A38A585007E8A52 /* Factory */,
-				15AAD09A2A14114500A36DD3 /* NetworkService */,
+				15AAD09A2A14114500A36DD3 /* FirebaseService */,
 				156FED3529CD069A002113F3 /* Helpers */,
 				15621CDB29FA71C5004AE1F6 /* RootViewControllers */,
 				15389DEB29F1ACD10013CB89 /* DATA */,
@@ -401,12 +401,12 @@
 			path = History;
 			sourceTree = "<group>";
 		};
-		15AAD09A2A14114500A36DD3 /* NetworkService */ = {
+		15AAD09A2A14114500A36DD3 /* FirebaseService */ = {
 			isa = PBXGroup;
 			children = (
 				15AAD0982A140A4100A36DD3 /* FirebaseService.swift */,
 			);
-			path = NetworkService;
+			path = FirebaseService;
 			sourceTree = "<group>";
 		};
 		15AD4A9E2A38A585007E8A52 /* Factory */ = {

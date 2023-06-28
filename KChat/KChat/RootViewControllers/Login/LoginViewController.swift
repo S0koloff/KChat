@@ -76,7 +76,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func regButtonAction() {
-        let vc = RegViewController(realmService: factory.realmService(), firebaseService: factory.firebaseService(), keychain: factory.keychain())
+        let vc = RegViewController(realmService: factory.realmService, firebaseService: factory.firebaseService, keychain: factory.keychain)
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
         print("reg")
@@ -89,7 +89,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func loginGestureAction(_ sender: UITapGestureRecognizer) {
-        let vc = AlreadyHaveAccountVC(firebaseService: factory.firebaseService(), realmService: factory.realmService(), keychain: factory.keychain())
+        let vc = AlreadyHaveAccountVC(firebaseService: factory.firebaseService, realmService: factory.realmService, keychain: factory.keychain)
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
         print("log")

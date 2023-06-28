@@ -7,15 +7,11 @@
 
 import UIKit
 
-protocol PhotosTableViewCellProtocol {
-    func getPhotosArray() -> [String]
-}
-
 class PhotosTableViewCell: UITableViewCell {
     
-    var delegate: PhotosTableViewCellProtocol?
-    
     let standartPhotos = [UIImage(named: "placeHolderImage"), UIImage(named: "placeHolderImage"), UIImage(named: "placeHolderImage")]
+    
+    var array = [String]()
     
     private lazy var labelPhotos: UILabel = {
         let label = UILabel()
@@ -46,13 +42,8 @@ class PhotosTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        setupPreviews()
         setupConstraints()
-        var array = [String]()
-        self.delegate?.getPhotosArray().forEach({ imageURL in
-            array.append(imageURL)
-        })
-        print(array)
+        setupPreviews()
     }
     
     required init?(coder: NSCoder) {
@@ -83,17 +74,21 @@ class PhotosTableViewCell: UITableViewCell {
         ])
     }
     
-    func getPreviewImage(index: Int) -> UIImageView {
+    func setupArray(array: [String]) {
+        self.array = array
+        print("SETUPARRAYONCELL", array)
+        setupPreviews()
+    }
+    
+    private func getPreviewImage(index: Int) -> UIImageView {
         let preview = UIImageView()
         preview.translatesAutoresizingMaskIntoConstraints = false
-        let photosArray = self.delegate?.getPhotosArray()
+        let photosArray = array
         print("photosCount", photosArray)
-        if photosArray?.count ?? 0 < 3 {
+        if photosArray.count < 3 {
         preview.image = standartPhotos[index]
         } else {
-            let photosArray = self.delegate?.getPhotosArray()
-           print("PhotoARRAY", photosArray)
-            preview.loadFrom(URLAddress: photosArray?[index] ?? "")
+            preview.loadFrom(URLAddress: photosArray[index])
         }
         preview.contentMode = .scaleAspectFill
         preview.layer.cornerRadius = 6
@@ -101,14 +96,19 @@ class PhotosTableViewCell: UITableViewCell {
         return preview
     }
     
-    private func setupPreviews() {
+    func setupPreviews() {
+        stackViewImage.arrangedSubviews.forEach { $0.removeFromSuperview() }
         for ind in 0...2 {
             let image = getPreviewImage(index: ind)
-            stackViewImage.addArrangedSubview(image)
-            NSLayoutConstraint.activate([
-                image.widthAnchor.constraint(greaterThanOrEqualToConstant: (contentView.frame.width - 24) / 4),
-                image.heightAnchor.constraint(equalToConstant: 90),
-            ])
+            print("COUNT",stackViewImage.arrangedSubviews.count)
+//            if stackViewImage.arrangedSubviews.count < 3 {
+                stackViewImage.addArrangedSubview(image)
+                NSLayoutConstraint.activate([
+                    image.widthAnchor.constraint(greaterThanOrEqualToConstant: (contentView.frame.width - 24) / 4),
+                    image.heightAnchor.constraint(equalToConstant: 90),
+                ])
+            print("COUNT2",stackViewImage.arrangedSubviews.count)
+//            }
         }
     }
 }

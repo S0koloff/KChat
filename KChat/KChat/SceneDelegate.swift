@@ -42,7 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 return
             }
             
-            let tabBarController = TabBarController(realmService: factory.realmService(), keychain: factory.keychain())
+            let tabBarController = TabBarController(realmService: factory.realmService, keychain: factory.keychain)
 
             self.window?.rootViewController = tabBarController.createTabBarController(user: userF)
             

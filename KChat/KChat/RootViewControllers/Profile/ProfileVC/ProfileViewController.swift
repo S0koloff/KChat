@@ -28,7 +28,6 @@ final class ProfileViewController: UIViewController {
     
     var postIdForComments = ""
     var myPosts = [PostModel]()
-    var photosArray = [String]()
     
     enum Status {
         case set
@@ -67,13 +66,13 @@ final class ProfileViewController: UIViewController {
         setupNavigationBar()
         setupView()
         setupPostsArray()
-        setupPhotosArray()
 
         NotificationCenter.default.addObserver(self, selector: #selector(refreshUserSettings), name: NSNotification.Name(rawValue: "refreshUserSettings"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(refreshPosts), name: NSNotification.Name(rawValue: "refreshPosts"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTable), name: NSNotification.Name(rawValue: "refreshTable"), object: nil)
+
     }
     
     private func setupNavigationBar() {
@@ -116,13 +115,6 @@ final class ProfileViewController: UIViewController {
         }
     }
     
-    func setupPhotosArray() {
-        let realm = try! Realm()
-        realm.objects(PhotoModel.self).forEach { photo in
-            self.photosArray.append(photo.photo)
-        }
-    }
-    
     @objc func settingsButtonAction() {
         let vc = SettingsViewController(realmService: realmService)
         let tr = CATransition()
@@ -153,7 +145,7 @@ final class ProfileViewController: UIViewController {
         }
     }
 }
-extension ProfileViewController: PostTableViewCellProtocol, PostsHeaderProtocol, ProfileHeaderProtol, PhotosTableViewCellProtocol {
+extension ProfileViewController: PostTableViewCellProtocol, PostsHeaderProtocol, ProfileHeaderProtol {
 
     func status(text: String, setupStatusBool: Bool, completion: @escaping (Status) -> Void) {
         var status: Status
@@ -285,12 +277,6 @@ extension ProfileViewController: PostTableViewCellProtocol, PostsHeaderProtocol,
             return false
         }
     }
-    
-    func getPhotosArray() -> [String] {
-        let array = photosArray
-        print(array)
-        return array
-    }
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
@@ -308,7 +294,12 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosViewCell", for: indexPath) as! PhotosTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
-            cell.delegate = self
+            let realm = try! Realm()
+            var photosArray = [String]()
+            realm.objects(PhotoModel.self).forEach { photo in
+                photosArray.insert(photo.photo, at: 0)
+            }
+            cell.setupArray(array: photosArray)
             return cell
             
         } else {

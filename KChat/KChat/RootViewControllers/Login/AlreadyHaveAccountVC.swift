@@ -173,13 +173,19 @@ final class AlreadyHaveAccountVC: UIViewController {
             case .success(let user):
                 let tabBarController = TabBarController(realmService: self.realmService, keychain: self.keychain)
                 
-                guard let sceneDelegate = UIApplication.shared.keyWindow else {
+                let keyWindow = UIApplication
+                    .shared
+                    .connectedScenes
+                    .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+                    .last { $0.isKeyWindow }
+                
+                guard let window = keyWindow else {
                     return
                 }
+
+                window.rootViewController = tabBarController.createTabBarController(user: user)
                 
-                sceneDelegate.rootViewController = tabBarController.createTabBarController(user: user)
-                
-                UIView.transition(with: sceneDelegate,
+                UIView.transition(with: window,
                                      duration: 0.3,
                                      options: .transitionCrossDissolve,
                                      animations: nil,
