@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>752051745924-i9m0efuuv5q2l95lcsobddqiai6396c9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.752051745924-i9m0efuuv5q2l95lcsobddqiai6396c9</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCyZe2z7KKH-xWpDe9Fxv3SULOJp0GF0cQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>752051745924</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>Sokolov.KChat</string>
+	<key>PROJECT_ID</key>
+	<string>kchat-bd65b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kchat-bd65b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:752051745924:ios:85de027deceaf3dd113ed1</string>
+</dict>
+</plist>
